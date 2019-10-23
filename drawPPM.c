@@ -28,19 +28,6 @@ int hashfunction(char* colour) {
     return -1;
 }
 
-void sigHandler0();
-void sigHandler1();
-void sigHandler2();
-void sigHandler3();
-void sigHandler4();
-void sigHandler5();
-void sigHandler6();
-void sigHandler7();
-void sigHandler8();
-void sigHandler9();
-void sigHandler10();
-
-
 int main(int argc, char* argv[]) {
   int bytesPerPixel = 3;
   void *buffer;
@@ -305,34 +292,27 @@ int main(int argc, char* argv[]) {
   int LHS;
   int RHS;
 
-  // Arrays for each section of output image
-  char buffer1[3][100][1000];
-  char buffer2[3][100][1000];
-  char buffer3[3][100][1000];
-  char buffer4[3][100][1000];
-  char buffer5[3][100][1000];
-  char buffer6[3][100][1000];
-  char buffer7[3][100][1000];
-  char buffer8[3][100][1000];
-  char buffer9[3][100][1000];
-  char buffer10[3][100][1000];
-
   if(fork() == 0) {
     // Child #1
     for(int i = 0; i < 100; i++) {
       for(int j = 0; j < 1000; j++) {
         if ( j < 500 ) {
-          buffer1[j][i][0] = color1[0];
-          buffer1[j][i][1] = color1[1];
-          buffer1[j][i][2] = color1[2];
+          buffer = &color1[0];
+          write(fd, buffer, 1);
+          buffer = &color1[1];
+          write(fd, buffer, 1);
+          buffer = &color1[2];
+          write(fd, buffer, 1);
         } else {
-          buffer1[j][i][0] = color2[0];
-          buffer1[j][i][1] = color2[1];
-          buffer1[j][i][2] = color2[2];
+          buffer = &color2[0];
+          write(fd, buffer, 1);
+          buffer = &color2[1];
+          write(fd, buffer, 1);
+          buffer = &color2[2];
+          write(fd, buffer, 1);
         }
       }
     }
-    write(fd, buffer1, sizeof(buffer1));
     exit(1);
   } else {
     // Parent
@@ -342,17 +322,22 @@ int main(int argc, char* argv[]) {
       for(int i = 0; i < 100; i++) {
         for(int j = 0; j < 1000; j++) {
           if ( j < 500 ) {
-            buffer2[j][i][0] = color1[0];
-            buffer2[j][i][1] = color1[1];
-            buffer2[j][i][2] = color1[2];
+            buffer = &color1[0];
+            write(fd, buffer, 1);
+            buffer = &color1[1];
+            write(fd, buffer, 1);
+            buffer = &color1[2];
+            write(fd, buffer, 1);
           } else {
-            buffer2[j][i][0] = color2[0];
-            buffer2[j][i][1] = color2[1];
-            buffer2[j][i][2] = color2[2];
+            buffer = &color2[0];
+            write(fd, buffer, 1);
+            buffer = &color2[1];
+            write(fd, buffer, 1);
+            buffer = &color2[2];
+            write(fd, buffer, 1);
           }
         }
       }
-      write(fd, buffer2, sizeof(buffer2));
       exit(1);
     } else {
       // Parent
@@ -364,17 +349,26 @@ int main(int argc, char* argv[]) {
         for(int i = 0; i < 100; i++) {
           for(int j = 0; j < 1000; j++) {
             if( i >= 50 && (j >= LHS && j <= RHS)) {
-              buffer3[j][i][0] = color[0];
-              buffer3[j][i][1] = color[1];
-              buffer3[j][i][2] = color[2];
+                buffer = &color[0];
+                write(fd, buffer, 1);
+                buffer = &color[1];
+                write(fd, buffer, 1);
+                buffer = &color[2];
+                write(fd, buffer, 1);
             } else if ( j < 500 ) {
-              buffer3[j][i][0] = color1[0];
-              buffer3[j][i][1] = color1[1];
-              buffer3[j][i][2] = color1[2];
+              buffer = &color1[0];
+              write(fd, buffer, 1);
+              buffer = &color1[1];
+              write(fd, buffer, 1);
+              buffer = &color1[2];
+              write(fd, buffer, 1);
             } else {
-              buffer3[j][i][0] = color2[0];
-              buffer3[j][i][1] = color2[1];
-              buffer3[j][i][2] = color2[2];
+              buffer = &color2[0];
+              write(fd, buffer, 1);
+              buffer = &color2[1];
+              write(fd, buffer, 1);
+              buffer = &color2[2];
+              write(fd, buffer, 1);
             }
           }
           if (i >= 50) {
@@ -382,7 +376,6 @@ int main(int argc, char* argv[]) {
             LHS--;
           }
         }
-        write(fd, buffer3, sizeof(buffer3));
         exit(1);
       } else {
         // Parent
@@ -394,23 +387,31 @@ int main(int argc, char* argv[]) {
           for(int i = 0; i < 100; i++) {
             for(int j = 0; j < 1000; j++) {
               if (j >= LHS && j <= RHS) {
-                buffer4[j][i][0] = color[0];
-                buffer4[j][i][1] = color[1];
-                buffer4[j][i][2] = color[2];
+                buffer = &color[0];
+                write(fd, buffer, 1);
+                buffer = &color[1];
+                write(fd, buffer, 1);
+                buffer = &color[2];
+                write(fd, buffer, 1);
               } else if ( j < 500 ) {
-                buffer4[j][i][0] = color1[0];
-                buffer4[j][i][1] = color1[1];
-                buffer4[j][i][2] = color1[2];
+                buffer = &color1[0];
+                write(fd, buffer, 1);
+                buffer = &color1[1];
+                write(fd, buffer, 1);
+                buffer = &color1[2];
+                write(fd, buffer, 1);
               } else {
-                buffer4[j][i][0] = color2[0];
-                buffer4[j][i][1] = color2[1];
-                buffer4[j][i][2] = color2[2];
+                buffer = &color2[0];
+                write(fd, buffer, 1);
+                buffer = &color2[1];
+                write(fd, buffer, 1);
+                buffer = &color2[2];
+                write(fd, buffer, 1);
               }
             }
             RHS++;
             LHS--;
           }
-          write(fd, buffer4, sizeof(buffer4));
           exit(1);
         } else {
           // Parent
@@ -422,23 +423,31 @@ int main(int argc, char* argv[]) {
             for(int i = 0; i < 100; i++) {
               for(int j = 0; j < 1000; j++) {
                 if (j >= LHS && j <= RHS) {
-                  buffer5[j][i][0] = color[0];
-                  buffer5[j][i][1] = color[1];
-                  buffer5[j][i][2] = color[2];
+                  buffer = &color[0];
+                  write(fd, buffer, 1);
+                  buffer = &color[1];
+                  write(fd, buffer, 1);
+                  buffer = &color[2];
+                  write(fd, buffer, 1);
                 } else if ( j < 500 ) {
-                  buffer5[j][i][0] = color1[0];
-                  buffer5[j][i][1] = color1[1];
-                  buffer5[j][i][2] = color1[2];
+                  buffer = &color1[0];
+                  write(fd, buffer, 1);
+                  buffer = &color1[1];
+                  write(fd, buffer, 1);
+                  buffer = &color1[2];
+                  write(fd, buffer, 1);
                 } else {
-                  buffer5[j][i][0] = color2[0];
-                  buffer5[j][i][1] = color2[1];
-                  buffer5[j][i][2] = color2[2];
+                  buffer = &color2[0];
+                  write(fd, buffer, 1);
+                  buffer = &color2[1];
+                  write(fd, buffer, 1);
+                  buffer = &color2[2];
+                  write(fd, buffer, 1);
                 }
               }
               RHS++;
               LHS--;
             }
-            write(fd, buffer5, sizeof(buffer5));
             exit(1);
           } else {
             // Parent
@@ -450,23 +459,31 @@ int main(int argc, char* argv[]) {
               for(int i = 0; i < 100; i++) {
                 for(int j = 0; j < 1000; j++) {
                   if (j >= LHS && j <= RHS) {
-                    buffer6[j][i][0] = color[0];
-                    buffer6[j][i][1] = color[1];
-                    buffer6[j][i][2] = color[2];
+                    buffer = &color[0];
+                    write(fd, buffer, 1);
+                    buffer = &color[1];
+                    write(fd, buffer, 1);
+                    buffer = &color[2];
+                    write(fd, buffer, 1);
                   } else if ( j < 500 ) {
-                    buffer6[j][i][0] = color1[0];
-                    buffer6[j][i][1] = color1[1];
-                    buffer6[j][i][2] = color1[2];
+                    buffer = &color3[0];
+                    write(fd, buffer, 1);
+                    buffer = &color3[1];
+                    write(fd, buffer, 1);
+                    buffer = &color3[2];
+                    write(fd, buffer, 1);
                   } else {
-                    buffer6[j][i][0] = color2[0];
-                    buffer6[j][i][1] = color2[1];
-                    buffer6[j][i][2] = color2[2];
+                    buffer = &color4[0];
+                    write(fd, buffer, 1);
+                    buffer = &color4[1];
+                    write(fd, buffer, 1);
+                    buffer = &color4[2];
+                    write(fd, buffer, 1);
                   }
                 }
-                RHS++;
-                LHS--;
+                RHS--;
+                LHS++;
               }
-              write(fd, buffer6, sizeof(buffer6));
               exit(1);
             } else {
               // Parent
@@ -478,23 +495,31 @@ int main(int argc, char* argv[]) {
                 for(int i = 0; i < 100; i++) {
                   for(int j = 0; j < 1000; j++) {
                     if (j >= LHS && j <= RHS) {
-                      buffer7[j][i][0] = color[0];
-                      buffer7[j][i][1] = color[1];
-                      buffer7[j][i][2] = color[2];
+                      buffer = &color[0];
+                      write(fd, buffer, 1);
+                      buffer = &color[1];
+                      write(fd, buffer, 1);
+                      buffer = &color[2];
+                      write(fd, buffer, 1);
                     } else if ( j < 500 ) {
-                      buffer7[j][i][0] = color1[0];
-                      buffer7[j][i][1] = color1[1];
-                      buffer7[j][i][2] = color1[2];
+                      buffer = &color3[0];
+                      write(fd, buffer, 1);
+                      buffer = &color3[1];
+                      write(fd, buffer, 1);
+                      buffer = &color3[2];
+                      write(fd, buffer, 1);
                     } else {
-                      buffer7[j][i][0] = color2[0];
-                      buffer7[j][i][1] = color2[1];
-                      buffer7[j][i][2] = color2[2];
+                      buffer = &color4[0];
+                      write(fd, buffer, 1);
+                      buffer = &color4[1];
+                      write(fd, buffer, 1);
+                      buffer = &color4[2];
+                      write(fd, buffer, 1);
                     }
                   }
-                  RHS++;
-                  LHS--;
+                  RHS--;
+                  LHS++;
                 }
-                write(fd, buffer7, sizeof(buffer7));
                 exit(1);
               } else {
                 // Parent
@@ -506,23 +531,31 @@ int main(int argc, char* argv[]) {
                   for(int i = 0; i < 100; i++) {
                     for(int j = 0; j < 1000; j++) {
                       if (j >= LHS && j <= RHS) {
-                        buffer8[j][i][0] = color[0];
-                        buffer8[j][i][1] = color[1];
-                        buffer8[j][i][2] = color[2];
+                        buffer = &color[0];
+                        write(fd, buffer, 1);
+                        buffer = &color[1];
+                        write(fd, buffer, 1);
+                        buffer = &color[2];
+                        write(fd, buffer, 1);
                       } else if ( j < 500 ) {
-                        buffer8[j][i][0] = color1[0];
-                        buffer8[j][i][1] = color1[1];
-                        buffer8[j][i][2] = color1[2];
+                        buffer = &color3[0];
+                        write(fd, buffer, 1);
+                        buffer = &color3[1];
+                        write(fd, buffer, 1);
+                        buffer = &color3[2];
+                        write(fd, buffer, 1);
                       } else {
-                        buffer8[j][i][0] = color2[0];
-                        buffer8[j][i][1] = color2[1];
-                        buffer8[j][i][2] = color2[2];
+                        buffer = &color4[0];
+                        write(fd, buffer, 1);
+                        buffer = &color4[1];
+                        write(fd, buffer, 1);
+                        buffer = &color4[2];
+                        write(fd, buffer, 1);
                       }
                     }
-                    RHS++;
-                    LHS--;
+                    RHS--;
+                    LHS++;
                   }
-                  write(fd, buffer8, sizeof(buffer8));
                   exit(1);
                 } else {
                   // Parent
@@ -532,17 +565,22 @@ int main(int argc, char* argv[]) {
                     for(int i = 0; i < 100; i++) {
                       for(int j = 0; j < 1000; j++) {
                         if ( j < 500 ) {
-                          buffer9[j][i][0] = color1[0];
-                          buffer9[j][i][1] = color1[1];
-                          buffer9[j][i][2] = color1[2];
+                          buffer = &color3[0];
+                          write(fd, buffer, 1);
+                          buffer = &color3[1];
+                          write(fd, buffer, 1);
+                          buffer = &color3[2];
+                          write(fd, buffer, 1);
                         } else {
-                          buffer9[j][i][0] = color2[0];
-                          buffer9[j][i][1] = color2[1];
-                          buffer9[j][i][2] = color2[2];
+                          buffer = &color4[0];
+                          write(fd, buffer, 1);
+                          buffer = &color4[1];
+                          write(fd, buffer, 1);
+                          buffer = &color4[2];
+                          write(fd, buffer, 1);
                         }
                       }
                     }
-                    write(fd, buffer9, sizeof(buffer9));
                     exit(1);
                   } else {
                     // Parent
@@ -552,17 +590,22 @@ int main(int argc, char* argv[]) {
                       for(int i = 0; i < 100; i++) {
                         for(int j = 0; j < 1000; j++) {
                           if ( j < 500 ) {
-                            buffer10[j][i][0] = color1[0];
-                            buffer10[j][i][1] = color1[1];
-                            buffer10[j][i][2] = color1[2];
+                            buffer = &color3[0];
+                            write(fd, buffer, 1);
+                            buffer = &color3[1];
+                            write(fd, buffer, 1);
+                            buffer = &color3[2];
+                            write(fd, buffer, 1);
                           } else {
-                            buffer10[j][i][0] = color2[0];
-                            buffer10[j][i][1] = color2[1];
-                            buffer10[j][i][2] = color2[2];
+                            buffer = &color4[0];
+                            write(fd, buffer, 1);
+                            buffer = &color4[1];
+                            write(fd, buffer, 1);
+                            buffer = &color4[2];
+                            write(fd, buffer, 1);
                           }
                         }
                       }
-                      write(fd, buffer10, sizeof(buffer10));
                       exit(1);
                     } else {
                       // Parent
